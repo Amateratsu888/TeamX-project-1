@@ -32,7 +32,6 @@ module.exports.postProduct = async (req, res) => {
 try{
     
     const { name, price, quantity} = req.body;
-    console.log(req.body, req.file);
     const product = await Products.create({ name, price,quantity,image_filename : req.file.filename,image_path : req.file.path})
     res.status(201).json(product)
 }catch (err) {
@@ -65,14 +64,14 @@ module.exports.patchProduct = async (req, res) => {
             image:req.body.image,
             },
         },
-        { new: true },
-        (err, data) => {
-            if (!err) res.status(200).json(data);
-            else res.status(500).send({ message: err });
-        }
+        { new: true }
+        
         )
+        res.status(200).send({ message: 'mise a jour' });
+        
     } catch (err) {
-        console.log(err);
+        
+        res.status(500).send({ message: err });
     }
     };
 
